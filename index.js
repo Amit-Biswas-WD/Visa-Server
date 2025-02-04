@@ -49,10 +49,34 @@ async function run() {
     });
 
     // delete
-    app.delete("/addVisa", async (req, res) => {
+    app.delete("/addVisa/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await visaCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    app.put("/addVisa/:id", async (req, res) => {
+      const id = req.params.id;
+      const visa = req.body;
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateOne = {
+        $set: {
+          country_name: visa.country_name,
+          url: visa.url,
+          visa_type: visa.visa_type,
+          processing_time: visa.processing_time,
+          validity: visa.validity,
+          application_method: visa.application_method,
+          required_documents: visa.required_documents,
+          description: visa.description,
+          processing_date: visa.processing_date,
+          age_restriction: visa.age_restriction,
+          fee: visa.fee,
+        },
+      };
+      const result = await visaCollection.updateOne(filter, updateOne, options);
       res.send(result);
     });
 
