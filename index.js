@@ -48,6 +48,14 @@ async function run() {
       res.send(result);
     });
 
+    // delete
+    app.delete("/addVisa", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await visaCollection.deleteOne(query);
+      res.send(result);
+    });
+
     console.log("Connected to MongoDB!");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
