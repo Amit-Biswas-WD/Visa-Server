@@ -24,12 +24,21 @@ async function run() {
     await client.connect();
 
     const visaCollection = client.db("visaDB").collection("addVisa");
+    const usersCollection = client.db("visaDB").collection("usersVisa");
 
     // data post
     app.post("/addVisa", async (req, res) => {
       const visa = req.body;
       console.log("visa detains", visa);
       const result = await visaCollection.insertOne(visa);
+      res.send(result);
+    });
+
+    // user Data
+    app.post("/usersVisa", async (req, res) => {
+      const users = req.body;
+      console.log("users data", users);
+      const result = await usersCollection.insertOne(users);
       res.send(result);
     });
 
