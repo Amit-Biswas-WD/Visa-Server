@@ -42,6 +42,13 @@ async function run() {
       res.send(result);
     });
 
+    // user Data send to server side data
+    app.get("/usersVisa", async (req, res) => {
+      const cursor = usersCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     // send to server side data
     app.get("/addVisa", async (req, res) => {
       const cursor = visaCollection.find();
