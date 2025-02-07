@@ -21,7 +21,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
 
     const visaCollection = client.db("visaDB").collection("addVisa");
     const usersCollection = client.db("visaDB").collection("usersVisa");
